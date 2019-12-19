@@ -7,7 +7,6 @@ require 'directors_database'
 def flatten_a_o_a(aoa)
   result = []
   i = 0
-
   while i < aoa.length do
     k = 0
     while k < aoa[i].length do
@@ -16,7 +15,6 @@ def flatten_a_o_a(aoa)
     end
     i += 1
   end
-
   result
 end
 
@@ -28,13 +26,26 @@ def movie_with_director_name(director_name, movie_data)
     :studio => movie_data[:studio],
     :director_name => director_name
   }
+    #binding.pry
 end
 
 
 # Your code after this point
 
 def movies_with_director_key(name, movies_collection)
-  # GOAL: For each Hash in an Array (movies_collection), provide a collection
+  dir_name = name
+  i = 0 
+  movies_collection #push hashes into this array
+  while i < movies_collection.length do
+    mov_hash = movie_with_director_name(dir_name, movies_collection[i])
+    movies_collection << mov_hash
+    i += 1
+    binding.pry
+  end
+  movies_collection
+end
+
+ # GOAL: For each Hash in a movies_collection (an array), provide a collection
   # of movies and a directors name to the movie_with_director_name method
   # and accumulate the returned Array of movies into a new Array that's
   # returned by this method.
@@ -48,16 +59,14 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
-end
-
-
+  
 def gross_per_studio(collection)
   # GOAL: Given an Array of Hashes where each Hash represents a movie,
   # return a Hash that includes the total worldwide_gross of all the movies from
   # each studio.
   #
   # INPUT:
-  # * collection: Array of Hashes where each Hash where each Hash represents a movie
+  # * collection: Array of Hashes where each Hash represents a movie
   #
   # RETURN:
   #
