@@ -35,14 +35,13 @@ end
 def movies_with_director_key(name, movies_collection)
   dir_name = name
   i = 0 
-  movies_collection #push hashes into this array
+  mov_array=[]
   while i < movies_collection.length do
     mov_hash = movie_with_director_name(dir_name, movies_collection[i])
-    movies_collection << mov_hash
+    mov_array << mov_hash
     i += 1
-    binding.pry
   end
-  movies_collection
+  mov_array
 end
 
  # GOAL: For each Hash in a movies_collection (an array), provide a collection
@@ -61,7 +60,25 @@ end
   # movie_with_director_name method
   
 def gross_per_studio(collection)
-  # GOAL: Given an Array of Hashes where each Hash represents a movie,
+  i = 0 
+  mov_hash = {}
+  while i < collection.length do
+   #{"Alpha Films" => 40, "Omega Films" => 10}
+    stu_name = collection[i][:studio]
+    if mov_hash.key?(stu_name)
+      mov_hash[stu_name] += collection[i][:worldwide_gross]
+    else
+      mov_hash[stu_name] = collection[i][:worldwide_gross]
+    end
+    #binding.pry
+    i += 1
+  end
+  mov_hash
+end
+#set a key inside new Hash
+#if hash includes studio key
+#else set it equal to worldwide_gross
+# GOAL: Given an Array of Hashes where each Hash represents a movie,
   # return a Hash that includes the total worldwide_gross of all the movies from
   # each studio.
   #
@@ -72,10 +89,31 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
-end
 
 def movies_with_directors_set(source)
-  # GOAL: For each director, find their :movies Array and stick it in a new Array
+  i = 0
+  dir_movies = []
+  while i < source.length do
+    mov_hash = source[i]
+    director_name = source[i][:name]
+    movies = source[i][:movies]
+    dir_movies << movies_with_director_key(director_name, movies)
+    #binding.pry
+    i += 1
+  end
+  dir_movies
+end
+
+ #j = 0
+  # while j < source[i][:movies].length do
+  #   mov_hash = {}
+  #   mov_hash[:director_name] = source[i][:name]
+  #   mov_hash[:name] = source[i][:movies][j][:title]
+  #   dir_movies << mov_hash
+  #   j += 1
+  #   #binding.pry
+   #end
+# GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
   # * source: An Array of Hashes containing director information including
@@ -85,7 +123,6 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
-end
 
 # ----------------    End of Your Code Region --------------------
 # Don't edit the following code! Make the methods above work with this method
