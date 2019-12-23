@@ -70,7 +70,7 @@ def gross_per_studio(collection)
     else
       mov_hash[stu_name] = collection[i][:worldwide_gross]
     end
-    #binding.pry
+    binding.pry
     i += 1
   end
   mov_hash
